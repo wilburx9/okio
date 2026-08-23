@@ -48,27 +48,25 @@ class OkioKotlinTest {
 
   @Test fun fileSink() {
     val file = temp.newFile()
-    val sink = file.sink()
-    sink.write(Buffer().writeUtf8("a"), 1L)
+    file.sink().use { it.write(Buffer().writeUtf8("a"), 1L) }
     assertThat(file.readText()).isEqualTo("a")
   }
 
   @Test fun fileAppendingSink() {
     val file = temp.newFile()
     file.writeText("a")
-    val sink = file.sink(append = true)
-    sink.write(Buffer().writeUtf8("b"), 1L)
-    sink.close()
+    file.sink(append = true).use { it.write(Buffer().writeUtf8("b"), 1L) }
     assertThat(file.readText()).isEqualTo("ab")
   }
 
   @Test fun fileSource() {
     val file = temp.newFile()
     file.writeText("a")
-    val source = file.source()
-    val buffer = Buffer()
-    source.read(buffer, 1L)
-    assertThat(buffer.readUtf8()).isEqualTo("a")
+    file.source().use { source ->
+      val buffer = Buffer()
+      source.read(buffer, 1L)
+      assertThat(buffer.readUtf8()).isEqualTo("a")
+    }
   }
 
   @Test fun pathSink() {
