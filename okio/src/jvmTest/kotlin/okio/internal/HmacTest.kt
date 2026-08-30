@@ -15,45 +15,51 @@
  */
 package okio.internal
 
-import app.cash.burst.Burst
+import de.infix.testBalloon.framework.core.testSuite
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 import kotlin.random.Random
 import okio.ByteString
 import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.Test
 
 /**
  * Check the [Hmac] implementation against the reference [Mac] JVM implementation.
  */
-@Burst
-class HmacTest(
-  keySize: KeySize,
-  dataSize: DataSize,
-  algorithm: Algorithm,
-) {
-  private val random = Random(682741861446)
-  private val key = random.nextBytes(keySize.size)
-  private val bytes = random.nextBytes(dataSize.size)
-  private val mac = algorithm.HmacFactory(ByteString(key))
-  private val expected = hmac(algorithm.algorithmName, key, bytes)
 
-  @Test
-  fun hmac() {
-    mac.update(bytes)
-    val hmacValue = mac.digest()
-
-    Assertions.assertArrayEquals(expected, hmacValue)
+val HmacTest by testSuite {
+  val testCases = KeySize.entries.flatMap { k ->
+    DataSize.entries.flatMap { d ->
+      Algorithm.entries.map { a -> Triple(k, d, a) }
+    }
   }
 
-  @Test
-  fun hmacBytes() {
-    for (byte in bytes) {
-      mac.update(byteArrayOf(byte))
-    }
-    val hmacValue = mac.digest()
+  for ((keySize, dataSize, algorithm) in testCases) {
+    testSuite("${keySize}_${dataSize}_${algorithm}") {
+      testFixture {
+        object {
+          val random = Random(682741861446)
+          val key = random.nextBytes(keySize.size)
+          val bytes = random.nextBytes(dataSize.size)
+          val mac = algorithm.HmacFactory(ByteString(key))
+          val expected = hmac(algorithm.algorithmName, key, bytes)
+        }
+      } asContextForEach {
+        test("hmac") {
+          mac.update(bytes)
+          val hmacValue = mac.digest()
+          Assertions.assertArrayEquals(expected, hmacValue)
+        }
 
-    Assertions.assertArrayEquals(expected, hmacValue)
+        test("hmacBytes") {
+          for (byte in bytes) {
+            mac.update(byteArrayOf(byte))
+          }
+          val hmacValue = mac.digest()
+
+          Assertions.assertArrayEquals(expected, hmacValue)
+        }
+      }
+    }
   }
 }
 

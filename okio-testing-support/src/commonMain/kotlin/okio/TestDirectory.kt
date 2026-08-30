@@ -17,10 +17,20 @@ package okio
 
 import app.cash.burst.TestFunction
 import app.cash.burst.TestInterceptor
+import de.infix.testBalloon.framework.core.TestSuiteScope
 
 /**
  * A temporary directory on [fileSystem] that's usable for the current test.
  */
+fun TestSuiteScope.testDirectory(
+  fileSystem: FileSystem,
+  temporaryDirectory: Path = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
+) = testFixture {
+  (temporaryDirectory / "test-${randomToken(16)}").also { fileSystem.createDirectories(it) }
+} closeWith { fileSystem.deleteRecursively(this) }
+
+
+// TODO: Delete after migration is complete
 class TestDirectory(
   val fileSystem: FileSystem,
   val temporaryDirectory: Path = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
