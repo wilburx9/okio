@@ -63,8 +63,7 @@ val WasiFileSystemPreopensTest by testSuite {
       )
     }
 
-    @Test
-    fun cannotOperateOutsideOfPreopens() {
+    test("cannotOperateOutsideOfPreopens") {
       val noPreopen = "/c/absent".toPath()
       assertFailsWith<FileNotFoundException> {
         fileSystem.createDirectory(noPreopen)

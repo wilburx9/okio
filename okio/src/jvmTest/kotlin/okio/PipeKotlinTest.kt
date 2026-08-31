@@ -15,6 +15,7 @@
  */
 package okio
 
+import de.infix.testBalloon.framework.core.TestConfig
 import de.infix.testBalloon.framework.core.testSuite
 import java.io.IOException
 import java.util.concurrent.CountDownLatch
@@ -23,13 +24,14 @@ import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.test.assertFailsWith
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.nanoseconds
+import kotlin.time.Duration.Companion.seconds
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 
-// TODO: Support timeout??
-val PipeKotlinTest by testSuite {
+
+val PipeKotlinTest by testSuite(testConfig = TestConfig.withTestTimeout(5.seconds)) {
   val smallerTimeoutNanos = TimeUnit.MILLISECONDS.toNanos(500L)
   val biggerTimeoutNanos = TimeUnit.MILLISECONDS.toNanos(1500L)
 
@@ -139,6 +141,7 @@ val PipeKotlinTest by testSuite {
       val executorService = TestExecutor(1)
     }
   } asContextForEach {
+
     test("pipe") {
       val pipe = Pipe(6)
       pipe.sink.write(Buffer().writeUtf8("abc"), 3L)

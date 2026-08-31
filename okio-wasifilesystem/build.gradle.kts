@@ -5,7 +5,6 @@ import com.vanniktech.maven.publish.MavenPublishBaseExtension
 plugins {
   kotlin("multiplatform")
   id("org.jetbrains.dokka")
-  id("app.cash.burst")
   id("de.infix.testBalloon")
   id("com.vanniktech.maven.publish.base")
   id("build-support")

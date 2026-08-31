@@ -15,8 +15,6 @@
  */
 package okio
 
-import app.cash.burst.TestFunction
-import app.cash.burst.TestInterceptor
 import de.infix.testBalloon.framework.core.TestSuiteScope
 
 /**
@@ -41,19 +39,4 @@ fun TestSuiteScope.testDirectories(
 
  fun FileSystem.createTestPath(directory: Path): Path {
   return (directory / "test-${randomToken(16)}").also { createDirectories(it) }
-}
-
-// TODO: Delete after migration is complete
-class TestDirectory(
-  val fileSystem: FileSystem,
-  val temporaryDirectory: Path = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-) : TestInterceptor {
-  lateinit var path: Path
-    private set
-
-  override fun intercept(testFunction: TestFunction) {
-    path = temporaryDirectory / "${testFunction.functionName}-${randomToken(16)}"
-    fileSystem.createDirectories(path)
-    testFunction()
-  }
 }

@@ -24,7 +24,6 @@ import kotlin.test.assertTrue
 import okio.ByteString.Companion.decodeHex
 import okio.ByteString.Companion.encodeUtf8
 
-// TODO: Fix OOME
 val CommonBufferedSourceTest by testSuite {
   for (factory in BufferedSourceFactory.entries) {
     testSuite(factory.name) {
@@ -1251,7 +1250,7 @@ val CommonBufferedSourceTest by testSuite {
   }
 }
 
-private class CommonBufferedSourceFixture(factory: BufferedSourceFactory) {
+private class CommonBufferedSourceFixture(factory: BufferedSourceFactory): AutoCloseable {
   val sink: BufferedSink
   val source: BufferedSource
 
@@ -1275,5 +1274,9 @@ private class CommonBufferedSourceFixture(factory: BufferedSourceFactory) {
     val actual = source.readDecimalLong()
     assertEquals(expected, actual, "$s --> $expected")
     assertEquals("zzz", source.readUtf8())
+  }
+
+  override fun close() {
+    runCatching { source.buffer.clear() }
   }
 }

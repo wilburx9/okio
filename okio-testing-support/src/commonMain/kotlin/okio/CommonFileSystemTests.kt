@@ -16,10 +16,10 @@
 package okio
 
 import de.infix.testBalloon.framework.core.Test.ExecutionScope
+import de.infix.testBalloon.framework.core.TestConfig
 import de.infix.testBalloon.framework.core.TestFixture
 import de.infix.testBalloon.framework.core.TestSuiteScope
-import kotlin.test.Ignore
-import kotlin.test.Test
+import de.infix.testBalloon.framework.core.disable
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -1451,9 +1451,7 @@ fun <T : FileSystemFixture> TestSuiteScope.fileSystemTests(
       }
     }
 
-    @Test
-    @Ignore
-    fun inaccessibleMetadata() {
+    test("inaccessibleMetadata", testConfig = TestConfig.disable()) {
       // TODO(swankjesse): configure a test directory in CI that exists, but that this process doesn't
       //     have permission to read metadata of. Perhaps a file in another user's /home directory?
     }

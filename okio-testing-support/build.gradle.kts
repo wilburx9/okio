@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompileTool
 
 plugins {
   kotlin("multiplatform")
-  id("app.cash.burst")
   id("de.infix.testBalloon")
   id("build-support")
 }
@@ -21,7 +20,6 @@ kotlin {
       dependencies {
         api(projects.okio)
         api(libs.kotlin.test)
-        api(libs.burst.runtime)
         api(libs.test.assertk)
         api(libs.test.balloon.core)
       }

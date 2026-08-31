@@ -40,7 +40,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 
-// TODO: Fix OOME
 val BufferedSourceTest by testSuite {
   for (factory in SourceFactory.entries) {
     testSuite(factory.name) {
@@ -1467,7 +1466,7 @@ val BufferedSourceTest by testSuite {
   }
 }
 
-private class BufferedSourceFixture(factory: SourceFactory) {
+private class BufferedSourceFixture(factory: SourceFactory): AutoCloseable {
   val pipe = factory.pipe()
   val sink: BufferedSink = pipe.sink
   val source: BufferedSource = pipe.source
@@ -1486,6 +1485,10 @@ private class BufferedSourceFixture(factory: SourceFactory) {
     sink.emit()
     val actual = source.readHexadecimalUnsignedLong()
     assertEquals(expected, actual, "$s --> $expected")
+  }
+
+  override fun close() {
+    runCatching { source.buffer.clear() }
   }
 }
 

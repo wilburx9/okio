@@ -15,8 +15,6 @@
  */
 package okio
 
-import app.cash.burst.TestFunction
-import app.cash.burst.TestInterceptor
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
 import java.util.concurrent.ScheduledExecutorService
@@ -41,41 +39,6 @@ class TestExecutor(corePoolSize: Int = 0): AutoCloseable {
 
   override fun close() {
     executorService.shutdown()
-  }
-
-  private companion object {
-    val isLoom = System.getProperty("loomEnabled").toBoolean()
-
-    fun newVirtualThreadFactory(): ThreadFactory {
-      val threadBuilder = Thread::class.java.getMethod("ofVirtual").invoke(null)
-      return Class.forName("java.lang.Thread\$Builder").getMethod("factory")
-        .invoke(threadBuilder) as ThreadFactory
-    }
-  }
-}
-
-// TODO: Delete after migration
-class OldTestExecutor(
-  private val corePoolSize: Int = 0,
-) : TestInterceptor {
-  lateinit var executorService: ScheduledExecutorService
-    private set
-
-  fun <T> submit(task: () -> T): Future<T> = executorService.submit<T>(task)
-
-  fun <T> schedule(delay: Duration, command: () -> T): ScheduledFuture<T> =
-    executorService.schedule(command, delay.inWholeNanoseconds, TimeUnit.NANOSECONDS)
-
-  override fun intercept(testFunction: TestFunction) {
-    executorService = when {
-      isLoom -> Executors.newScheduledThreadPool(corePoolSize, newVirtualThreadFactory())
-      else -> Executors.newScheduledThreadPool(corePoolSize)
-    }
-    try {
-      testFunction()
-    } finally {
-      executorService.shutdown()
-    }
   }
 
   private companion object {
