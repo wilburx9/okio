@@ -22,7 +22,7 @@ import assertk.assertions.isEqualTo
 import de.infix.testBalloon.framework.core.testSuite
 import kotlin.test.assertFailsWith
 
-val  LimitSourceTest by testSuite {
+val LimitSourceTest by testSuite {
   for (throwIfSourceIsLonger in listOf(true, false)) {
     test("happyPath throwIfSourceIsLonger=$throwIfSourceIsLonger") {
       val delegate = Buffer().writeUtf8("abcdefghijklmnop")

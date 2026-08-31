@@ -24,7 +24,7 @@ val ZipFileSystemJavaTest by testSuite {
   val fileSystem = FileSystem.SYSTEM
 
   testDirectory(fileSystem) asParameterForEach {
-    test ("zipFileSystemApi") {base ->
+    test("zipFileSystemApi") { base ->
       val zipPath = ZipBuilder(base)
         .addEntry("hello.txt", "Hello World")
         .build()
@@ -34,6 +34,5 @@ val ZipFileSystemJavaTest by testSuite {
         assertThat(content).isEqualTo("Hello World")
       }
     }
-
   }
 }

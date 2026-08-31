@@ -29,7 +29,7 @@ val WasiFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = false,
         temporaryDirectory = "/tmp".toPath(),
         closeBehavior = CloseBehavior.DoesNothing,
-        variant = FileSystemVariant.Wasi
+        variant = FileSystemVariant.Wasi,
       )
     },
   )

@@ -231,7 +231,7 @@ val SocketTest by testSuite {
         }
 
         test("cancelIsQuiet") {
-          if(factory != SocketTestFactory.Default) return@test
+          if (factory != SocketTestFactory.Default) return@test
 
           val (socketA, socketB) = createSocketPairThatThrowsOnClose(IOException("boom!"))
           socketA.cancel()
@@ -239,7 +239,7 @@ val SocketTest by testSuite {
         }
 
         test("conscryptCrashIsQuiet") {
-          if(factory != SocketTestFactory.Default) return@test
+          if (factory != SocketTestFactory.Default) return@test
 
           val (socketA, socketB) = createSocketPairThatThrowsOnClose(RuntimeException("bio == null"))
           socketA.cancel()
@@ -291,6 +291,7 @@ private class SocketFixture(factory: SocketTestFactory) : AutoCloseable {
   }
 }
 
+@Suppress("ktlint:trailing-comma-on-declaration-site")
 enum class SocketTestFactory {
   /** Implements an okio.Socket using the `java.net.Socket` API on OS sockets. */
   Default {

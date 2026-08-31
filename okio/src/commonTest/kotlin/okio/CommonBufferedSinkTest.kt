@@ -313,18 +313,18 @@ val CommonBufferedSinkTest by testSuite {
   }
 }
 
-private class CommonBufferedSink(factory: BufferedSinkFactory){
+private class CommonBufferedSink(factory: BufferedSinkFactory) {
   val data: Buffer = Buffer()
   val sink: BufferedSink = factory.create(data)
 
-   fun assertLongHexString(value: Long) {
+  fun assertLongHexString(value: Long) {
     sink.writeHexadecimalUnsignedLong(value).writeUtf8("zzz").flush()
     val expected = "${value.toHexString()}zzz"
     val actual = data.readUtf8()
     assertEquals(expected, actual, "$value expected $expected but was $actual")
   }
 
-   fun assertLongDecimalString(string: String, value: Long) {
+  fun assertLongDecimalString(string: String, value: Long) {
     sink.writeDecimalLong(value).writeUtf8("zzz").flush()
     val expected = "${string}zzz"
     val actual = data.readUtf8()

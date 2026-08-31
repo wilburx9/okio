@@ -29,7 +29,7 @@ val NodeJsFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = false,
         temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
         closeBehavior = CloseBehavior.DoesNothing,
-        variant = FileSystemVariant.NodeJs
+        variant = FileSystemVariant.NodeJs,
       )
     },
   )

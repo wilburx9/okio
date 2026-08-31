@@ -491,7 +491,6 @@ val ResourceFileSystemTest by testSuite {
       )
       assertEquals("Chante, ô déesse, le courroux du Péléide Achille,\n", content)
     }
-
   }
 }
 

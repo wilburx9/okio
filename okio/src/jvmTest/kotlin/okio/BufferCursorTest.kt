@@ -114,8 +114,8 @@ val BufferCursorTest by testSuite {
         cursor.use { cursor ->
           var lastOffset = cursor.offset
           while (cursor.next().toLong() != -1L) {
-                Assertions.assertTrue(cursor.offset > lastOffset)
-                lastOffset = cursor.offset
+            Assertions.assertTrue(cursor.offset > lastOffset)
+            lastOffset = cursor.offset
           }
           assertEquals(buffer.size, cursor.offset)
           assertNull(cursor.data)
@@ -133,12 +133,12 @@ val BufferCursorTest by testSuite {
           assertEquals(5, cursor.offset)
           assertEquals(2, (cursor.end - cursor.start).toLong())
           assertEquals(
-              'd'.code.toLong(),
-              Char(cursor.data!![cursor.start - 2].toUShort()).code.toLong(),
+            'd'.code.toLong(),
+            Char(cursor.data!![cursor.start - 2].toUShort()).code.toLong(),
           ) // Out of bounds!
           assertEquals(
-              'e'.code.toLong(),
-              Char(cursor.data!![cursor.start - 1].toUShort()).code.toLong(),
+            'e'.code.toLong(),
+            Char(cursor.data!![cursor.start - 1].toUShort()).code.toLong(),
           ) // Out of bounds!
           assertEquals('f'.code.toLong(), Char(cursor.data!![cursor.start].toUShort()).code.toLong())
           assertEquals('g'.code.toLong(), Char(cursor.data!![cursor.start + 1].toUShort()).code.toLong())

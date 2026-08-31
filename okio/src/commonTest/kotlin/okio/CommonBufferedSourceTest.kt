@@ -1250,7 +1250,7 @@ val CommonBufferedSourceTest by testSuite {
   }
 }
 
-private class CommonBufferedSourceFixture(factory: BufferedSourceFactory): AutoCloseable {
+private class CommonBufferedSourceFixture(factory: BufferedSourceFactory) : AutoCloseable {
   val sink: BufferedSink
   val source: BufferedSource
 

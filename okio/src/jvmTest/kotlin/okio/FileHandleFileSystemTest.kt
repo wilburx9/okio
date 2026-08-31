@@ -37,7 +37,7 @@ val FileHandleFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = false,
         temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
         closeBehavior = CloseBehavior.DoesNothing,
-        variant = FileSystemVariant.System
+        variant = FileSystemVariant.System,
       )
     },
   )
@@ -62,7 +62,7 @@ val FileHandleNioJimFileSystemWrapperFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = true,
         temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
         closeBehavior = CloseBehavior.Closes,
-        variant = FileSystemVariant.JimfsWrapping
+        variant = FileSystemVariant.JimfsWrapping,
       )
     },
   )
@@ -82,7 +82,7 @@ val FileHandleNioDefaultFileSystemWrapperFileSystemTest by testSuite {
         allowRenameWhenTargetIsOpen = Path.DIRECTORY_SEPARATOR != "\\",
         temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
         closeBehavior = CloseBehavior.Unsupported,
-        variant = FileSystemVariant.System
+        variant = FileSystemVariant.System,
       )
     },
   )

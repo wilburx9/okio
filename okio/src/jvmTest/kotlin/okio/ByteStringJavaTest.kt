@@ -200,7 +200,6 @@ val ByteStringJavaTest by testSuite {
         val string = "04".decodeHex().string(UTF_16BE)
         assertEquals("\ufffd", string)
       }
-
     }
   }
 }

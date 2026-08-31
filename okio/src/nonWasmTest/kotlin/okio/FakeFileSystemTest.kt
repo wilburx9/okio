@@ -187,7 +187,7 @@ private fun TestSuiteScope.fakeFileSystemTests(newFixture: () -> FakeFileSystemF
           """
       |expected 0 open files, but found:
       |    $path
-      """.trimMargin(),
+          """.trimMargin(),
           exception.message,
         )
         assertEquals("file opened for READ here", exception.cause?.message)
@@ -208,7 +208,7 @@ private fun TestSuiteScope.fakeFileSystemTests(newFixture: () -> FakeFileSystemF
           """
       |expected 0 open files, but found:
       |    $path
-      """.trimMargin(),
+          """.trimMargin(),
           exception.message,
         )
         assertEquals("file opened for WRITE here", exception.cause?.message)

@@ -39,7 +39,7 @@ val JimfsOkioRoundTripTest by testSuite {
 
   testDirectory(okioFs, temporaryDirectory) asParameterForEach {
 
-    test("writeOkioReadJim") {base ->
+    test("writeOkioReadJim") { base ->
       val path = base / "file-handle-write-okio-and-read-jim"
 
       okioFs.write(path) {
@@ -49,7 +49,7 @@ val JimfsOkioRoundTripTest by testSuite {
       assertEquals("abcdefghijklmnop", jimFsRoot.resolve(path.toString()).readText(Charsets.UTF_8))
     }
 
-    test("writeJimReadOkio") {base ->
+    test("writeJimReadOkio") { base ->
       val path = base / "file-handle-write-jim-and-read-okio"
       jimFsRoot.resolve(path.toString()).writeText("abcdefghijklmnop", Charsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE)
 

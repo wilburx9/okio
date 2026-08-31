@@ -326,7 +326,6 @@ private enum class SinkFactory {
   abstract fun create(data: Buffer): BufferedSink
 }
 
-
 private class BufferedSinkFixture(factory: SinkFactory) {
   val data: Buffer = Buffer()
   val sink: BufferedSink = factory.create(data)
@@ -344,5 +343,4 @@ private class BufferedSinkFixture(factory: SinkFactory) {
     val actual = data.readUtf8()
     assertEquals(actual, expected, "$value expected $expected but was $actual")
   }
-
 }

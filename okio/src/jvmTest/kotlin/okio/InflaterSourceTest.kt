@@ -31,7 +31,6 @@ import okio.TestUtil.randomBytes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.fail
 
-
 val InflaterSourceTest by testSuite {
   for (bufferFactory in BufferedSourceFactory.entries) {
     testSuite(bufferFactory.name) {
@@ -77,7 +76,7 @@ val InflaterSourceTest by testSuite {
         }
 
         test("inflatePoorlyCompressed") {
-          if(bufferFactory.isOneByteAtATime) return@test // 8 GiB for 1 byte per segment!
+          if (bufferFactory.isOneByteAtATime) return@test // 8 GiB for 1 byte per segment!
           val original = randomBytes(1024 * 1024)
           deflate(original)
           val inflated = inflate(deflatedSource)
@@ -108,7 +107,7 @@ val InflaterSourceTest by testSuite {
         }
 
         test("inflateByteCount") {
-          if(bufferFactory.isOneByteAtATime) return@test // This test assumes one step.
+          if (bufferFactory.isOneByteAtATime) return@test // This test assumes one step.
           val inflated = Buffer()
           decodeBase64("eJxzz09RyEjNKVAoLdZRKE9VL0pVyMxTKMlIVchIzEspVshPU0jNS8/MS00tKtYDAF6CD5s=")
           val source = InflaterSource(deflatedSource, Inflater())
@@ -163,7 +162,6 @@ val InflaterSourceTest by testSuite {
     }
   }
 }
-
 
 private class InflaterFixture(val factory: BufferedSourceFactory) {
   lateinit var deflatedSink: BufferedSink

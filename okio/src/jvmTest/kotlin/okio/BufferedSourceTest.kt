@@ -1466,7 +1466,7 @@ val BufferedSourceTest by testSuite {
   }
 }
 
-private class BufferedSourceFixture(factory: SourceFactory): AutoCloseable {
+private class BufferedSourceFixture(factory: SourceFactory) : AutoCloseable {
   val pipe = factory.pipe()
   val sink: BufferedSink = pipe.sink
   val source: BufferedSource = pipe.source

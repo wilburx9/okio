@@ -25,7 +25,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import okio.ByteString.Companion.encodeUtf8
-import org.junit.jupiter.api.Assumptions
 
 object TestUtil {
   // Necessary to make an internal member visible to Java.

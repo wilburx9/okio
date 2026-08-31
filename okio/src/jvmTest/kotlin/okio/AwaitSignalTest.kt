@@ -193,7 +193,6 @@ val AwaitSignalTest by testSuite {
           }
         }
       }
-
     }
   }
 }
@@ -203,7 +202,6 @@ private class AwaitSignalFixture(factory: TimeoutFactory) : AutoCloseable {
   val executorService = TestExecutor(0)
   val lock = ReentrantLock()
   val condition: Condition = lock.newCondition()
-
 
   /** Returns the nanotime in milliseconds as a double for measuring timeouts.  */
   fun now(): Double {
@@ -227,5 +225,4 @@ private class AwaitSignalFixture(factory: TimeoutFactory) : AutoCloseable {
   override fun close() {
     executorService.close()
   }
-
 }

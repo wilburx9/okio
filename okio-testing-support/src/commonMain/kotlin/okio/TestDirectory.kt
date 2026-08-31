@@ -37,6 +37,6 @@ fun TestSuiteScope.testDirectories(
   }
 } closeWith { forEach { fileSystem.deleteRecursively(it) } }
 
- fun FileSystem.createTestPath(directory: Path): Path {
+fun FileSystem.createTestPath(directory: Path): Path {
   return (directory / "test-${randomToken(16)}").also { createDirectories(it) }
 }

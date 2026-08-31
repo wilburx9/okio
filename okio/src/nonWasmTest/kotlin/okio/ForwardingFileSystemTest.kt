@@ -34,7 +34,7 @@ val ForwardingFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = false,
         temporaryDirectory = "/".toPath(),
         closeBehavior = CloseBehavior.Closes,
-        variant = FileSystemVariant.Fake
+        variant = FileSystemVariant.Fake,
       )
     },
     extraTests = {
@@ -187,4 +187,3 @@ val ForwardingFileSystemTest by testSuite {
     },
   )
 }
-

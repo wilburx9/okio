@@ -140,10 +140,10 @@ val ThrottlerTest by testSuite(testConfig = TestConfig.disable()) {
   }
 }
 
-private class ThrottleFixture: AutoCloseable {
+private class ThrottleFixture : AutoCloseable {
   val source = randomSource(size)
-  val throttler = Throttler().apply {bytesPerSecond(4 * size, 4096, 8192)  }
-  val throttlerSlow = Throttler().apply {bytesPerSecond(2 * size, 4096, 8192)  }
+  val throttler = Throttler().apply { bytesPerSecond(4 * size, 4096, 8192) }
+  val throttlerSlow = Throttler().apply { bytesPerSecond(2 * size, 4096, 8192) }
   val executorService = TestExecutor(threads)
   val stopwatch = Stopwatch()
   override fun close() = executorService.close()

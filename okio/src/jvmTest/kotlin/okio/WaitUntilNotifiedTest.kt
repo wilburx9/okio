@@ -73,7 +73,6 @@ val WaitUntilNotifiedTest by testSuite {
           }
         }
 
-
         test("deadlineBeforeTimeout") {
           if (isWindows()) return@test
           synchronized(this) {
@@ -195,7 +194,7 @@ val WaitUntilNotifiedTest by testSuite {
   }
 }
 
-private class WaitUntilNotifiedFixture(factory: TimeoutFactory): AutoCloseable {
+private class WaitUntilNotifiedFixture(factory: TimeoutFactory) : AutoCloseable {
   val timeout = factory.newTimeout()
   val testExecutor = TestExecutor(0)
 

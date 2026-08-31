@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompileTool
 
 plugins {
   kotlin("multiplatform")
-  id("de.infix.testBalloon")
   id("build-support")
 }
 

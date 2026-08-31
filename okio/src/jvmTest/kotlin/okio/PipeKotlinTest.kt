@@ -30,7 +30,6 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 
-
 val PipeKotlinTest by testSuite(testConfig = TestConfig.withTestTimeout(5.seconds)) {
   val smallerTimeoutNanos = TimeUnit.MILLISECONDS.toNanos(500L)
   val biggerTimeoutNanos = TimeUnit.MILLISECONDS.toNanos(1500L)
@@ -38,8 +37,7 @@ val PipeKotlinTest by testSuite(testConfig = TestConfig.withTestTimeout(5.second
   val smallerDeadlineNanos = TimeUnit.MILLISECONDS.toNanos(500L)
   val biggerDeadlineNanos = TimeUnit.MILLISECONDS.toNanos(1500L)
 
-
-   fun assertDuration(expected: Long, block: () -> Unit) {
+  fun assertDuration(expected: Long, block: () -> Unit) {
     val start = System.currentTimeMillis()
     block()
     val elapsed = TimeUnit.MILLISECONDS.toNanos(System.currentTimeMillis() - start)
@@ -911,8 +909,5 @@ val PipeKotlinTest by testSuite(testConfig = TestConfig.withTestTimeout(5.second
       pipe.sink.close()
       assertTrue(foldedSinkClosed)
     }
-
-
-
   }
 }

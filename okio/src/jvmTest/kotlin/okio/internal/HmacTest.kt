@@ -37,7 +37,7 @@ val HmacTest by testSuite {
   }
 
   for ((keySize, dataSize, algorithm) in testCases) {
-    testSuite("${keySize}_${dataSize}_${algorithm}") {
+    testSuite("${keySize}_${dataSize}_$algorithm") {
       testFixture {
         object {
           val random = Random(682741861446)

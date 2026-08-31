@@ -29,7 +29,7 @@ val NativeSystemFileSystemTest by testSuite {
         allowAtomicMoveFromFileToDirectory = false,
         temporaryDirectory = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
         closeBehavior = CloseBehavior.DoesNothing,
-        variant = FileSystemVariant.System
+        variant = FileSystemVariant.System,
       )
     },
   )

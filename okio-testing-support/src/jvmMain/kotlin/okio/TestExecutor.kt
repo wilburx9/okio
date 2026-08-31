@@ -26,7 +26,7 @@ import kotlin.time.Duration
 /**
  * Manages a `ExecutorService` and shuts it down after the test.
  */
-class TestExecutor(corePoolSize: Int = 0): AutoCloseable {
+class TestExecutor(corePoolSize: Int = 0) : AutoCloseable {
   private val executorService: ScheduledExecutorService = when {
     isLoom -> Executors.newScheduledThreadPool(corePoolSize, newVirtualThreadFactory())
     else -> Executors.newScheduledThreadPool(corePoolSize)
