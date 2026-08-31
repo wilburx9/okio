@@ -6,6 +6,7 @@ plugins {
   kotlin("multiplatform")
   id("org.jetbrains.dokka")
   id("app.cash.burst")
+  id("de.infix.testBalloon")
   id("com.vanniktech.maven.publish.base")
   id("build-support")
   id("binary-compatibility-validator")
@@ -19,6 +20,7 @@ kotlin {
   sourceSets {
     all {
       languageSettings.optIn("kotlin.wasm.unsafe.UnsafeWasmMemoryApi")
+      languageSettings.optIn("kotlin.time.ExperimentalTime")
     }
     val wasmWasiMain by getting {
       dependencies {
@@ -29,6 +31,7 @@ kotlin {
       dependencies {
         implementation(projects.okioTestingSupport)
         implementation(libs.kotlin.test)
+        implementation(libs.test.balloon.core)
       }
     }
   }

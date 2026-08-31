@@ -25,7 +25,7 @@ import de.infix.testBalloon.framework.core.TestSuiteScope
 fun TestSuiteScope.testDirectory(
   fileSystem: FileSystem,
   temporaryDirectory: Path = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-) = testFixture { createPath(fileSystem, temporaryDirectory) } closeWith { fileSystem.deleteRecursively(this) }
+) = testFixture { fileSystem.createTestPath(temporaryDirectory) } closeWith { fileSystem.deleteRecursively(this) }
 
 /**
  * A scope that provides temporary directories on [fileSystem] that's usable for the current test.
@@ -35,12 +35,12 @@ fun TestSuiteScope.testDirectories(
   vararg temporaryDirectories: Path,
 ) = testFixture {
   temporaryDirectories.map { parent ->
-    createPath(fileSystem, parent)
+    fileSystem.createTestPath(parent)
   }
 } closeWith { forEach { fileSystem.deleteRecursively(it) } }
 
-private fun createPath(fileSystem: FileSystem, directory: Path): Path {
-  return (directory / "test-${randomToken(16)}").also { fileSystem.createDirectories(it) }
+ fun FileSystem.createTestPath(directory: Path): Path {
+  return (directory / "test-${randomToken(16)}").also { createDirectories(it) }
 }
 
 // TODO: Delete after migration is complete
