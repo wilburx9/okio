@@ -27,7 +27,6 @@ import java.nio.charset.Charset
 import java.util.Arrays
 import kotlin.text.Charsets.US_ASCII
 import kotlin.text.Charsets.UTF_8
-import okio.BufferedSourceFixture.SourceFactory
 import okio.ByteString.Companion.decodeHex
 import okio.ByteString.Companion.encodeUtf8
 import okio.Options.Companion.of
@@ -42,8 +41,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.fail
 
 // TODO: Fix OOME
-
-
 val BufferedSourceTest by testSuite {
   for (factory in SourceFactory.entries) {
     testSuite(factory.name) {
