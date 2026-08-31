@@ -27,6 +27,9 @@ import org.junit.jupiter.api.Assertions
  */
 
 val HmacTest by testSuite {
+  fun hmac(algorithm: String, key: ByteArray, bytes: ByteArray) =
+    Mac.getInstance(algorithm).apply { init(SecretKeySpec(key, algorithm)) }.doFinal(bytes)
+
   val testCases = KeySize.entries.flatMap { k ->
     DataSize.entries.flatMap { d ->
       Algorithm.entries.map { a -> Triple(k, d, a) }
@@ -79,6 +82,3 @@ enum class Algorithm(
   Sha256("HmacSha256", Hmac.Companion::sha256),
   Sha512("HmacSha512", Hmac.Companion::sha512),
 }
-
-private fun hmac(algorithm: String, key: ByteArray, bytes: ByteArray) =
-  Mac.getInstance(algorithm).apply { init(SecretKeySpec(key, algorithm)) }.doFinal(bytes)

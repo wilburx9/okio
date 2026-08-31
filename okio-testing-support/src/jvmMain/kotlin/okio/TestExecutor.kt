@@ -28,7 +28,34 @@ import kotlin.time.Duration
 /**
  * Manages a `ExecutorService` and shuts it down after the test.
  */
-class TestExecutor(
+class TestExecutor(corePoolSize: Int = 0): AutoCloseable {
+  private val executorService: ScheduledExecutorService = when {
+    isLoom -> Executors.newScheduledThreadPool(corePoolSize, newVirtualThreadFactory())
+    else -> Executors.newScheduledThreadPool(corePoolSize)
+  }
+
+  fun <T> submit(task: () -> T): Future<T> = executorService.submit<T>(task)
+
+  fun <T> schedule(delay: Duration, command: () -> T): ScheduledFuture<T> =
+    executorService.schedule(command, delay.inWholeNanoseconds, TimeUnit.NANOSECONDS)
+
+  override fun close() {
+    executorService.shutdown()
+  }
+
+  private companion object {
+    val isLoom = System.getProperty("loomEnabled").toBoolean()
+
+    fun newVirtualThreadFactory(): ThreadFactory {
+      val threadBuilder = Thread::class.java.getMethod("ofVirtual").invoke(null)
+      return Class.forName("java.lang.Thread\$Builder").getMethod("factory")
+        .invoke(threadBuilder) as ThreadFactory
+    }
+  }
+}
+
+// TODO: Delete after migration
+class OldTestExecutor(
   private val corePoolSize: Int = 0,
 ) : TestInterceptor {
   lateinit var executorService: ScheduledExecutorService

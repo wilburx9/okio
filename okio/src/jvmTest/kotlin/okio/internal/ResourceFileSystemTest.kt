@@ -48,6 +48,7 @@ import okio.testDirectory
 
 val ResourceFileSystemTest by testSuite {
   val fileSystem = FileSystem.RESOURCES as ResourceFileSystem
+  fun Package.toPath(): Path = name.replace(".", "/").toPath()
 
   testDirectory(FileSystem.SYSTEM) asParameterForEach {
     test("testResourceA") {
@@ -80,7 +81,7 @@ val ResourceFileSystemTest by testSuite {
       assertThat(content).isEqualTo("b/b")
     }
 
-    test("testSingleArchive") {base ->
+    test("testSingleArchive") { base ->
       val zipPath = ZipBuilder(base)
         .addEntry("hello.txt", "Hello World")
         .addEntry("directory/subdirectory/child.txt", "Another file!")
@@ -493,8 +494,6 @@ val ResourceFileSystemTest by testSuite {
 
   }
 }
-
-private fun Package.toPath(): Path = name.replace(".", "/").toPath()
 
 private val KClass<*>.packagePath: Path?
   get() = qualifiedName?.replace(".", "/")?.toPath()?.parent
