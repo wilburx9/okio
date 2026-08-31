@@ -1365,24 +1365,24 @@ fun <T : FileSystemFixture> TestSuiteScope.fileSystemTests(
     }
 
     /** https://github.com/lysine-dev/okio/issues/1755 */
-//    test("fileMetadataTimestampsAreDistinct") {
-//      if (fileSystem.isFakeFileSystem) return@test
-//      if (fileSystem is ForwardingFileSystem) return@test
-//      if (isJimFileSystem()) return@test
-//      if (!fileSystemHasGoodMetadata) return@test
-//
-//      // These timestamps are hardcoded in the following Gradle tasks:
-//      //   :okio-testing-support:touchAbstractFileSystemTestFilesCreatedAt
-//      //   :okio-testing-support:touchAbstractFileSystemTestFilesModifiedAt
-//      val createdAt = fromIso8601String("2026-01-01T01:01:01Z")
-//      val lastModifiedAt = fromIso8601String("2026-02-02T02:02:02Z")
-//
-//      val path = okioRoot / "okio-testing-support" / "build/AbstractFileSystemTestFiles/metadata.txt"
-//      val metadata = fileSystem.metadata(path)
-//      assertTrue(metadata.isRegularFile)
-//      assertInRange(metadata.createdAt, createdAt, createdAt)
-//      assertInRange(metadata.lastModifiedAt, lastModifiedAt, lastModifiedAt)
-//    }
+    test("fileMetadataTimestampsAreDistinct") {
+      if (fileSystem.isFakeFileSystem) return@test
+      if (fileSystem is ForwardingFileSystem) return@test
+      if (isJimFileSystem()) return@test
+      if (!fileSystemHasGoodMetadata) return@test
+
+      // These timestamps are hardcoded in the following Gradle tasks:
+      //   :okio-testing-support:touchAbstractFileSystemTestFilesCreatedAt
+      //   :okio-testing-support:touchAbstractFileSystemTestFilesModifiedAt
+      val createdAt = fromIso8601String("2026-01-01T01:01:01Z")
+      val lastModifiedAt = fromIso8601String("2026-02-02T02:02:02Z")
+
+      val path = okioRoot / "okio-testing-support" / "build/AbstractFileSystemTestFiles/metadata.txt"
+      val metadata = fileSystem.metadata(path)
+      assertTrue(metadata.isRegularFile)
+      assertInRange(metadata.createdAt, createdAt, createdAt)
+      assertInRange(metadata.lastModifiedAt, lastModifiedAt, lastModifiedAt)
+    }
 
     test("directoryMetadata") {
       val minTime = clock.now()
