@@ -23,7 +23,7 @@ import de.infix.testBalloon.framework.core.TestSuiteScope
 fun TestSuiteScope.testDirectory(
   fileSystem: FileSystem,
   temporaryDirectory: Path = FileSystem.SYSTEM_TEMPORARY_DIRECTORY,
-) = testFixture { fileSystem.createTestPath(temporaryDirectory) } closeWith { fileSystem.deleteRecursively(this) }
+) = testFixture { fileSystem.createTestPath(temporaryDirectory) }
 
 /**
  * A scope that provides temporary directories on [fileSystem] that's usable for the current test.
@@ -35,7 +35,7 @@ fun TestSuiteScope.testDirectories(
   temporaryDirectories.map { parent ->
     fileSystem.createTestPath(parent)
   }
-} closeWith { forEach { fileSystem.deleteRecursively(it) } }
+}
 
 fun FileSystem.createTestPath(directory: Path): Path {
   return (directory / "test-${randomToken(16)}").also { createDirectories(it) }
