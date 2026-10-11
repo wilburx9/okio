@@ -1349,6 +1349,21 @@ fun <T : FileSystemFixture> TestSuiteScope.fileSystemTests(
       assertTrue(fileSystem.exists(base))
     }
 
+    test("deleteRecursivelyOnInvalidSymlinkCycleSucceeds") {
+      if (!supportsSymlink()) return@test
+
+      val directory = base / "directory-to-delete"
+      val pathA = directory / "symlink-a"
+      val pathB = directory / "symlink-b"
+
+      fileSystem.createDirectory(directory)
+      fileSystem.createSymlink(pathA, pathB)
+      fileSystem.createSymlink(pathB, pathA)
+
+      fileSystem.deleteRecursively(directory)
+      assertFalse(fileSystem.exists(directory))
+    }
+
     test("fileMetadata") {
       val minTime = clock.now()
       val path = base / "file-metadata"
